@@ -1,0 +1,62 @@
+<div class="page-header">
+    <h2>Pending Approvals</h2>
+    <p>Review and approve team expense requests</p>
+    <div class="currency-selector">
+        <label for="base-currency">Base Currency:</label>
+        <select id="base-currency" onchange="updateCurrencyRates()">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="INR">INR (₹)</option>
+        </select>
+        <small id="last-updated">Rates updated: <span id="update-time">Loading...</span></small>
+    </div>
+</div>
+
+<div class="approvals-container">
+    <% pendingExpenses.forEach(expense => { %>
+        <div class="expense-card" data-original-amount="<%= expense.amount %>" data-currency="<%= expense.currency || 'USD' %>">
+            <div class="expense-header">
+                <div class="amount-display">
+                    <div class="original-amount">$<%= expense.amount %> <%= expense.currency || 'USD' %></div>
+                    <div class="converted-amount" id="converted-<%= expense.id %>">
+                        <span class="converted-value">Calculating...</span>
+                        <small class="conversion-rate">in USD</small>
+                    </div>
+                </div>
+                <div class="expense-status <%= expense.status %>"><%= expense.status %></div>
+            </div>
+            <div class="expense-body">
+                <p class="expense-description"><%= expense.description %></p>
+                <p class="expense-user">Submitted by: <%= expense.user %></p>
+                <p class="expense-date"><%= expense.date %></p>
+                <div class="expense-category">
+                    <span class="category-badge"><%= expense.category || 'Other' %></span>
+                </div>
+            </div>
+            <div class="expense-actions">
+                <button type="button" class="btn btn-info btn-sm" onclick="viewReceipt(<%= expense.id %>)">
+                    <i class="fas fa-eye"></i> View Receipt
+                </button>
+                <form action="/expenses/approve/<%= expense.id %>" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Approve
+                    </button>
+                </form>
+                <form action="/expenses/reject/<%= expense.id %>" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Reject
+                    </button>
+                </form>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<% if (pendingExpenses.length === 0) { %>
+    <div class="empty-state">
+        <i class="fas fa-check-circle"></i>
+        <h3>No pending approvals</h3>
+        <p>All expenses have been reviewed.</p>
+    </div>
+<% } %>

@@ -1,0 +1,21 @@
+<div class="expense-card">
+    <div class="expense-header">
+        <div class="expense-amount">$<%= amount %></div>
+        <div class="expense-status <%= status %>"><%= status %></div>
+    </div>
+    <div class="expense-body">
+        <p class="expense-description"><%= description %></p>
+        <p class="expense-user">Submitted by: <%= user %></p>
+        <p class="expense-date"><%= date %></p>
+    </div>
+    <div class="expense-actions">
+        <% if (showActions) { %>
+            <form action="/expenses/approve/<%= id %>" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-success">Approve</button>
+            </form>
+            <form action="/expenses/reject/<%= id %>" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Reject</button>
+            </form>
+        <% } %>
+    </div>
+</div>

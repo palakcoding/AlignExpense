@@ -1,46 +1,180 @@
-# AlignExpense
+# AlignExpense - Smart Expense Reimbursement System
 
-**AlignExpense** is a streamlined solution designed to eliminate the manual overhead, errors, and lack of transparency often found in corporate expense processes[cite: 3]. [cite_start]By utilizing automated approval sequences and OCR technology, it ensures that every claim follows a clear, logical path from submission to reimbursement[cite: 4, 37, 53].
+A modern, professional SaaS UI for expense management built with Node.js, Express, and EJS.
 
----
+## Features
 
-## 🚀 Core Features
+- **Role-based Dashboards**: Separate interfaces for Employees, Managers, and Admins
+- **Modern UI Design**: Clean, layered backgrounds with subtle gradients and depth
+- **Responsive Layout**: Works on desktop and mobile devices
+- **Approval Flow Visualization**: Visual stepper showing expense approval process
+- **Modular Architecture**: Reusable EJS partials and components
 
-### 🔐 Automated Onboarding & Multi-Tenancy
-* [cite_start]**Instant Environment Setup**: Upon the first login or signup, a new Company and Admin User are automatically generated[cite: 10, 11].
-* [cite_start]**Localized Finance**: The system automatically sets the environment's default currency based on the selected country[cite: 11].
-* [cite_start]**Role-Based Access Control (RBAC)**: Admins can seamlessly create Employees and Managers, assigning specific roles and defining reporting hierarchies[cite: 13, 14, 16].
+## Tech Stack
 
-### 💸 Smart Expense Submission
-* [cite_start]**Multi-Currency Support**: Employees can submit claims in any currency, which the system handles alongside the company’s base currency[cite: 19].
-* [cite_start]**OCR-Powered Entry**: Users can scan receipts; an OCR algorithm automatically extracts the amount, date, description, and vendor name to autogenerate the expense[cite: 53, 54].
-* [cite_start]**History Tracking**: Employees have a dedicated view to monitor the status of their past approved or rejected claims[cite: 21].
+- **Backend**: Node.js + Express
+- **Frontend**: EJS templates (no React)
+- **Styling**: Custom CSS with modern design system
+- **Icons**: Font Awesome
+- **Fonts**: Inter (Google Fonts)
 
-### ⚖️ Advanced Approval Engine
-* [cite_start]**Sequential Workflows**: Define multi-step approval paths (e.g., Manager → Finance → Director) where a request moves forward only after the current level approves[cite: 24, 31, 33].
-* **Conditional Logic**:
-    * [cite_start]**Percentage Rule**: Approve expenses if a specific majority (e.g., 60%) of approvers agree[cite: 40].
-    * [cite_start]**Specific Approver Rule**: Grant auto-approval if a designated role, such as the CFO, signs off[cite: 41].
-    * [cite_start]**Hybrid Rules**: Combine both logic types for complex organizational needs[cite: 42, 43].
-* [cite_start]**Admin Overrides**: Administrators maintain the power to view all expenses and override approvals to prevent bottlenecks[cite: 48].
+## Project Structure
 
----
+```
+AlignExpense/
+├── views/
+│   ├── layouts/
+│   │   └── main.ejs          # Main layout with navbar/sidebar
+│   ├── partials/
+│   │   ├── navbar.ejs        # Top navigation bar
+│   │   ├── sidebar.ejs       # Side navigation menu
+│   │   ├── statsCard.ejs     # Reusable stats card component
+│   │   ├── expenseCard.ejs   # Reusable expense card component
+│   │   └── footer.ejs        # Footer component
+│   └── pages/
+│       ├── login.ejs         # Login page with role selection
+│       ├── employee/
+│       │   ├── dashboard.ejs # Employee dashboard
+│       │   ├── submitExpense.ejs # Submit new expense form
+│       │   └── history.ejs   # Expense history table
+│       ├── manager/
+│       │   ├── dashboard.ejs # Manager dashboard
+│       │   └── approvals.ejs # Pending approvals list
+│       └── admin/
+│           ├── dashboard.ejs # Admin dashboard
+│           ├── users.ejs     # User management
+│           └── rules.ejs     # Approval rules configuration
+├── public/
+│   ├── css/
+│   │   └── styles.css        # Main stylesheet
+│   └── js/
+│       └── main.js           # Client-side JavaScript
+├── index.js                  # Express server
+└── package.json              # Dependencies and scripts
+```
 
-## 🛠️ Technical Stack & APIs
+## Design System
 
-* [cite_start]**Platform**: Odoo [cite: 1]
-* [cite_start]**Localization**: [RestCountries API](https://restcountries.com/v3.1/all?fields=name,currencies) for country and currency mapping[cite: 55].
-* [cite_start]**Financial Accuracy**: [ExchangeRate-API](https://api.exchangerate-api.com/v4/latest/{BASE_CURRENCY}) for real-time currency conversions[cite: 55].
-* [cite_start]**OCR**: Automated field extraction for amounts, dates, and descriptions[cite: 54].
+### Color Palette
+- **Primary**: #4F46E5 (Indigo)
+- **Secondary**: #0EA5E9 (Blue)
+- **Accent**: #9333EA (Purple)
+- **Success**: #22C55E (Green)
+- **Danger**: #EF4444 (Red)
+- **Background**: Layered light gray with subtle gradients
 
----
+### Typography
+- **Font Family**: Inter (sans-serif)
+- **Hierarchy**: Bold headings, clean body text
 
-## 👥 Roles & Permissions
+### Components
+- **Cards**: Rounded corners (12px), soft shadows, hover animations
+- **Buttons**: Consistent styling with hover effects
+- **Tables**: Clean rows with hover highlights
+- **Forms**: Modern input styling with focus states
 
-| Role | Key Responsibilities |
-| :--- | :--- |
-| **Admin** | [cite_start]Configure approval rules, manage users, and override workflows[cite: 47, 48]. |
-| **Manager** | [cite_start]Review team expenses and approve/reject with mandatory comments[cite: 49, 50]. |
-| **Employee** | [cite_start]Scan receipts, submit expenses, and track reimbursement status[cite: 51, 54]. |
+## Installation
 
----
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/palakcoding/AlignExpense.git
+   cd AlignExpense
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
+
+4. **Open your browser**
+   ```
+   http://localhost:3000
+   ```
+
+## Usage
+
+### Navigation Flow
+
+1. **Login Page** (`/login`)
+   - Enter credentials or select role directly
+   - Redirects based on selected role
+
+2. **Employee Flow**
+   - Dashboard: View personal expenses and stats
+   - Submit Expense: Create new expense requests
+   - History: Track approval status
+
+3. **Manager Flow**
+   - Dashboard: Team overview and recent activity
+   - Approvals: Review and approve/reject expenses
+
+4. **Admin Flow**
+   - Dashboard: Company-wide statistics and approval flow
+   - Users: Manage user accounts
+   - Rules: Configure approval workflows
+
+### Key Features
+
+- **Visual Approval Flow**: Step-by-step indicator showing Employee → Manager → Admin process
+- **Responsive Design**: Adapts to different screen sizes
+- **Smooth Animations**: Subtle transitions and hover effects
+- **Professional UI**: Enterprise-grade design with depth and polish
+
+## API Endpoints
+
+- `GET /login` - Login page
+- `POST /login` - Process login
+- `GET /employee/dashboard` - Employee dashboard
+- `GET /employee/submit` - Submit expense form
+- `GET /employee/history` - Expense history
+- `POST /expenses/add` - Create new expense
+- `GET /manager/dashboard` - Manager dashboard
+- `GET /manager/approvals` - Pending approvals
+- `POST /expenses/approve/:id` - Approve expense
+- `POST /expenses/reject/:id` - Reject expense
+- `GET /admin/dashboard` - Admin dashboard
+- `GET /admin/users` - User management
+- `GET /admin/rules` - Approval rules
+
+## Development
+
+### Adding New Features
+
+1. **Create EJS templates** in appropriate `views/pages/` subdirectories
+2. **Add routes** in `index.js` with proper data injection
+3. **Style components** in `public/css/styles.css`
+4. **Add interactions** in `public/js/main.js`
+
+### Customization
+
+- **Colors**: Modify CSS custom properties in `styles.css`
+- **Layout**: Adjust grid systems and spacing
+- **Components**: Extend existing partials or create new ones
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+ISC License - see LICENSE file for details
+
+## Demo
+
+The application includes mock data for demonstration purposes. All functionality is client-side rendered with sample data to showcase the UI design and user experience.

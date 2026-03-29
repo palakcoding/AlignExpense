@@ -1,0 +1,65 @@
+<div class="page-header">
+    <h2>Employee Dashboard</h2>
+    <p>Manage your expenses and track approvals</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.totalExpenses %></div>
+            <div class="stats-label">Total Expenses</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.pendingCount %></div>
+            <div class="stats-label">Pending</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.approvedCount %></div>
+            <div class="stats-label">Approved</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.rejectedCount %></div>
+            <div class="stats-label">Rejected</div>
+        </div>
+    </div>
+</div>
+
+<div class="recent-expenses">
+    <h3>Recent Expenses</h3>
+    <div class="expenses-list">
+        <% expenses.forEach(expense => { %>
+            <div class="expense-card">
+                <div class="expense-header">
+                    <div class="expense-amount">$<%= expense.amount %></div>
+                    <div class="expense-status <%= expense.status %>"><%= expense.status %></div>
+                </div>
+                <div class="expense-body">
+                    <p class="expense-description"><%= expense.description %></p>
+                    <p class="expense-user">Submitted by: <%= expense.user %></p>
+                    <p class="expense-date"><%= expense.date %></p>
+                </div>
+                <div class="expense-actions">
+                    <!-- No actions for employee view -->
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>

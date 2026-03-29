@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlignExpense - Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 class="login-title">Welcome to AlignExpense</h1>
+                <p class="login-subtitle">Smart Expense Reimbursement System</p>
+            </div>
+
+            <form action="/login" method="POST" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="role-selection">
+                <p>Quick Access - Select Your Role</p>
+                <div class="role-buttons">
+                    <a href="/employee/dashboard" class="role-btn employee">
+                        <i class="fas fa-user"></i>
+                        <span>Employee</span>
+                    </a>
+                    <a href="/manager/dashboard" class="role-btn manager">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Manager</span>
+                    </a>
+                    <a href="/admin/dashboard" class="role-btn admin">
+                        <i class="fas fa-crown"></i>
+                        <span>Admin</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "alignexpense",
+  "version": "1.0.0",
+  "description": "Smart Expense Reimbursement System",
+  "homepage": "https://github.com/palakcoding/AlignExpense#readme",
+  "bugs": {
+    "url": "https://github.com/palakcoding/AlignExpense/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palakcoding/AlignExpense.git"
+  },
+  "license": "ISC",
+  "author": "Bhargav Bhamare",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9"
+  }
+}

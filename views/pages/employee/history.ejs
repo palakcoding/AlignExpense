@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h2>Expense History</h2>
+    <p>Track all your submitted expenses</p>
+</div>
+
+<div class="table-container">
+    <table class="expenses-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% expenses.forEach(expense => { %>
+                <tr>
+                    <td><%= expense.date %></td>
+                    <td><%= expense.description %></td>
+                    <td>$<%= expense.amount %></td>
+                    <td><span class="status-badge <%= expense.status %>"><%= expense.status %></span></td>
+                    <td>
+                        <% if (expense.status === 'pending') { %>
+                            <button class="btn btn-sm btn-warning">Edit</button>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

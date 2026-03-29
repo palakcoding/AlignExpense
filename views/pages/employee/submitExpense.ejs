@@ -1,0 +1,189 @@
+<div class="page-header">
+    <h2>Submit New Expense</h2>
+    <p>Fill in the details for your expense reimbursement</p>
+</div>
+
+<div class="form-container">
+    <!-- Success/Error Messages -->
+    <div id="messageContainer"></div>
+
+    <form id="expenseForm" class="expense-form" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <div class="amount-input-group">
+                    <select id="currency" name="currency" class="currency-select">
+                        <option value="USD" selected>USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="JPY">JPY (¥)</option>
+                        <option value="CAD">CAD (C$)</option>
+                        <option value="AUD">AUD (A$)</option>
+                        <option value="CHF">CHF (Fr)</option>
+                        <option value="CNY">CNY (¥)</option>
+                        <option value="INR">INR (₹)</option>
+                    </select>
+                    <input type="number" id="amount" name="amount" step="0.01" placeholder="0.00" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe your expense..." required></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="travel">✈️ Travel & Transportation</option>
+                    <option value="meals">🍽️ Meals & Entertainment</option>
+                    <option value="supplies">📝 Office Supplies</option>
+                    <option value="accommodation">🏨 Accommodation</option>
+                    <option value="training">📚 Training & Education</option>
+                    <option value="software">💻 Software & Tools</option>
+                    <option value="marketing">📢 Marketing & Advertising</option>
+                    <option value="utilities">⚡ Utilities & Services</option>
+                    <option value="other">📋 Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="expense_date">Expense Date</label>
+                <input type="date" id="expense_date" name="expense_date" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="receipt">Receipt Upload</label>
+            <div class="file-upload">
+                <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" multiple>
+                <div class="file-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drop files here or <span class="file-upload-link">browse</span></p>
+                    <small>Supported: JPG, PNG, PDF (Max 10MB)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('expenseForm').reset(); document.getElementById('messageContainer').innerHTML = '';">Clear</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Submit Expense</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.getElementById('expenseForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const messageContainer = document.getElementById('messageContainer');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    messageContainer.innerHTML = '';
+    
+    try {
+        const formData = new FormData(this);
+        
+        const response = await fetch('/expenses/add', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Show success message
+            messageContainer.innerHTML = `
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>Success!</strong>
+                        <p>${data.message}</p>
+                        <p><small>Expense ID: #${data.expense.id}</small></p>
+                    </div>
+                </div>
+            `;
+            
+            // Reset form
+            document.getElementById('expenseForm').reset();
+            
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = '/employee/history';
+            }, 2000);
+        } else {
+            messageContainer.innerHTML = `
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div>
+                        <strong>Error!</strong>
+                        <p>${data.message}</p>
+                    </div>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        messageContainer.innerHTML = `
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <strong>Error!</strong>
+                    <p>Failed to submit expense. Please check your connection and try again.</p>
+                </div>
+            </div>
+        `;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Submit Expense';
+    }
+});
+
+// File upload click handler
+document.querySelector('.file-upload-link').addEventListener('click', function() {
+    document.getElementById('receipt').click();
+});
+
+// Drag and drop for file upload
+const fileUploadArea = document.querySelector('.file-upload-area');
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    fileUploadArea.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+['dragenter', 'dragover'].forEach(eventName => {
+    fileUploadArea.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    fileUploadArea.addEventListener(eventName, unhighlight, false);
+});
+
+function highlight(e) {
+    fileUploadArea.style.borderColor = '#4F46E5';
+    fileUploadArea.style.backgroundColor = '#eef2ff';
+}
+
+function unhighlight(e) {
+    fileUploadArea.style.borderColor = '#cbd5e1';
+    fileUploadArea.style.backgroundColor = '#f8fafc';
+}
+
+fileUploadArea.addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    document.getElementById('receipt').files = files;
+}
+</script>

@@ -1,0 +1,29 @@
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <% 
+        const menuItems = {
+            employee: [
+                { icon: 'fas fa-tachometer-alt', label: 'Dashboard', href: '/employee/dashboard', active: currentPage === 'dashboard' },
+                { icon: 'fas fa-plus-circle', label: 'Submit Expense', href: '/employee/submit', active: currentPage === 'submit' },
+                { icon: 'fas fa-history', label: 'History', href: '/employee/history', active: currentPage === 'history' }
+            ],
+            manager: [
+                { icon: 'fas fa-tachometer-alt', label: 'Dashboard', href: '/manager/dashboard', active: currentPage === 'dashboard' },
+                { icon: 'fas fa-check-circle', label: 'Approvals', href: '/manager/approvals', active: currentPage === 'approvals' }
+            ],
+            admin: [
+                { icon: 'fas fa-tachometer-alt', label: 'Dashboard', href: '/admin/dashboard', active: currentPage === 'dashboard' },
+                { icon: 'fas fa-users', label: 'Users', href: '/admin/users', active: currentPage === 'users' },
+                { icon: 'fas fa-cogs', label: 'Rules', href: '/admin/rules', active: currentPage === 'rules' }
+            ]
+        };
+        const items = menuItems[user.role] || [];
+        %>
+        <% items.forEach(item => { %>
+            <a href="<%= item.href %>" class="sidebar-item <%= item.active ? 'active' : '' %>">
+                <i class="<%= item.icon %>"></i>
+                <span><%= item.label %></span>
+            </a>
+        <% }); %>
+    </nav>
+</aside>

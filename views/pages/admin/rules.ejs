@@ -1,0 +1,130 @@
+<div class="page-header">
+    <h2>Approval Rules & Settings</h2>
+    <p>Configure approval workflows, thresholds, and system settings</p>
+</div>
+
+<div class="rules-container">
+    <div class="rules-grid">
+        <div class="rules-section">
+            <div class="section-header">
+                <h3><i class="fas fa-route"></i> Approval Flow</h3>
+                <p>Current approval workflow configuration</p>
+            </div>
+
+            <div class="flow-visualizer">
+                <div class="flow-step completed">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Employee Submission</h4>
+                        <p>Employee submits expense request</p>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step active">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Manager Review</h4>
+                        <p>Manager approves or rejects</p>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Admin Final Check</h4>
+                        <p>Admin conducts final review</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rules-section">
+            <div class="section-header">
+                <h3><i class="fas fa-sliders-h"></i> Approval Thresholds</h3>
+                <p>Set automatic approval limits and escalation rules</p>
+            </div>
+
+            <div class="thresholds-grid">
+                <div class="threshold-item">
+                    <div class="threshold-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="threshold-content">
+                        <label for="manager_limit">Manager Auto-Approval Limit</label>
+                        <div class="input-group">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="manager_limit" name="manager_limit" value="500" step="50" min="0">
+                        </div>
+                        <small>Expenses below this amount are auto-approved by managers</small>
+                    </div>
+                </div>
+
+                <div class="threshold-item">
+                    <div class="threshold-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="threshold-content">
+                        <label for="admin_limit">Admin Escalation Limit</label>
+                        <div class="input-group">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" id="admin_limit" name="admin_limit" value="2000" step="100" min="0">
+                        </div>
+                        <small>Expenses above this amount require admin approval</small>
+                    </div>
+                </div>
+
+                <div class="threshold-item">
+                    <div class="threshold-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="threshold-content">
+                        <label for="min_approval_rate">Minimum Approval Rate</label>
+                        <div class="input-group">
+                            <input type="number" id="min_approval_rate" name="min_approval_rate" value="85" step="5" min="0" max="100">
+                            <span class="percentage-symbol">%</span>
+                        </div>
+                        <small>Minimum approval rate required for automatic processing</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rules-section">
+            <div class="section-header">
+                <h3><i class="fas fa-clock"></i> Processing Rules</h3>
+                <p>Configure automatic processing and notification settings</p>
+            </div>
+
+            <div class="processing-rules">
+                <div class="rule-item">
+                    <div class="rule-toggle">
+                        <input type="checkbox" id="auto_approve" checked>
+                        <label for="auto_approve">Enable Auto-Approval</label>
+                    </div>
+                    <small>Automatically approve expenses below threshold</small>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-toggle">
+                        <input type="checkbox" id="email_notifications" checked>
+                        <label for="email_notifications">Email Notifications</label>
+                    </div>
+                    <small>Send email alerts for new submissions and approvals</small>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-toggle">
+                        <input type="checkbox" id="duplicate_check" checked>
+                        <label for="duplicate_check">Duplicate Detection</label>
+                    </div>
+                    <small>Check for duplicate expense submissions</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rules-actions">
+        <button type="button" class="btn btn-secondary" onclick="resetToDefaults()">Reset to Defaults</button>
+        <button type="button" class="btn btn-primary" onclick="saveRules()">Save Settings</button>
+    </div>
+</div>

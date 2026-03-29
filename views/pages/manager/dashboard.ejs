@@ -1,0 +1,60 @@
+<div class="page-header">
+    <h2>Manager Dashboard</h2>
+    <p>Overview of team expenses and approvals</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.teamMembers %></div>
+            <div class="stats-label">Team Members</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.totalTeamExpenses %></div>
+            <div class="stats-label">Team Expenses</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.pendingApprovals %></div>
+            <div class="stats-label">Pending Approvals</div>
+        </div>
+    </div>
+    <div class="stats-card">
+        <div class="stats-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stats-content">
+            <div class="stats-value"><%= stats.approvedThisMonth %></div>
+            <div class="stats-label">Approved This Month</div>
+        </div>
+    </div>
+</div>
+
+<div class="recent-activity">
+    <h3>Recent Team Activity</h3>
+    <div class="activity-list">
+        <% activities.forEach(activity => { %>
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fas fa-<%= activity.icon %>"></i>
+                </div>
+                <div class="activity-content">
+                    <p><%= activity.message %></p>
+                    <span class="activity-time"><%= activity.time %></span>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
